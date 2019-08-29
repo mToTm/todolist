@@ -1,26 +1,44 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import React, { Component } from 'react'
+class TodoList extends Component {
+  state = {
+    todo: "",
+    list: []
+  }
+  render() {
+    return (
+      <div>
+        <input type="text" 
+        style={{marginRight:20}} 
+        value={this.state.todo} 
+        onChange={this.handleChange}/>
+        <button onClick={this.submit}>提交</button>
+        <ul>
+         {this.state.list.map((item,index) => <li key={index} onClick={this.delItem.bind(this,index)}>{item}</li>)}
+        </ul>
+      </div>
+    )
+  }
+  handleChange = e => {
+    // console.log(e.target.value)
+    this.setState({
+      todo:e.target.value
+    })
+  }
+  submit = () => {
+    const list = [...this.state.list,this.state.todo]
+    this.setState({
+      list,
+      todo: ''
+    }) 
+  }
+  delItem (index) {
+    console.log(index)
+    const list = [...this.state.list]
+    list.splice(index,1)
+    this.setState({
+      list
+    })
+  }
 }
 
-export default App;
+export default TodoList
