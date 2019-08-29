@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import TodoItem from './TodoItem'
 class TodoList extends Component {
   state = {
     todo: "",
@@ -12,9 +13,11 @@ class TodoList extends Component {
         value={this.state.todo} 
         onChange={this.handleChange}/>
         <button onClick={this.submit}>提交</button>
-        <ul>
-         {this.state.list.map((item,index) => <li key={index} onClick={this.delItem.bind(this,index)}>{item}</li>)}
-        </ul>
+        {this.state.list.map((item,index) => <TodoItem
+        key={index} 
+        content={item} 
+        index={index} 
+        delItem={this.delItem.bind(this)} />)}
       </div>
     )
   }
